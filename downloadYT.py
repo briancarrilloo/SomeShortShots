@@ -1,5 +1,6 @@
 import yt_dlp
-from datetime import datetime
+import os
+import shutil
 import argparse
 
 def main(url):
@@ -12,7 +13,27 @@ def main(url):
 
     # Descargar el video
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+        result = ydl.download([url])
+        # Obtener información del video descargado
+        info_dict = ydl.extract_info(url, download=False)
+        video_title = info_dict.get('title', None)
+        video_extension = info_dict.get('ext', None)
+    
+    # Ruta del archivo descargado
+    downloaded_file = f'downloads/{video_title}.{video_extension}'
+
+    # Carpetas de destino
+    destination_folders = ['tiktok', 'youtube', 'instagram']
+
+    # Crear las carpetas de destino si no existen y copiar el archivo
+    for folder in destination_folders:
+        destination_path = os.path.join('downloads', folder)
+        if not os.path.exists(destination_path):
+            os.makedirs(destination_path)
+            os.makedirs(destination_path + '/processed')
+        shutil.copy(downloaded_file, destination_path)
+    
+    os.remove(downloaded_file)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Descargar y convertir un video de YouTube.')
