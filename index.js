@@ -7,28 +7,51 @@ app.use(express.json());
 // Middleware
 app.use(morgan('dev'));
 
+// Downloader
+const downloadFromYoutube = async (URL) => {
+  console.log(`Ejecutando: python3 downloadYT.py ${URL}`);
+  exec(`python3 downloadYT.py ${URL}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error ejecutando el script de Python: ${error.message}`);
+      console.error(`stderr: ${stderr}`);
+    } else {
+      console.log(`Salida del script de Python: ${stdout}`);
+    }
+  });
+}
+
+const downloadFromInstagram = async (URL) => {
+  console.log(`Ejecutando: python3 downloadIG.py ${URL}`);
+  exec(`python3 downloadIG.py ${URL}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error ejecutando el script de Python: ${error.message}`);
+      console.error(`stderr: ${stderr}`);
+    } else {
+      console.log(`Salida del script de Python: ${stdout}`);
+    }
+  });
+}
+
 // Routes 
-app.post('/getVideoYoutube', async (req, res) => {
+app.post('/getVideo', async (req, res) => {
   const URL = req.body.URL;
-  console.log(`Downloading video ${URL}`);
+  console.log(`Processing ${URL}`);
 
   try {
-    // Ejecutar el script de Python de manera asincrónica
-    console.log(`Ejecutando: python3 downloadYT.py ${URL}`);
-    exec(`python3 downloadYT.py ${URL}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error ejecutando el script de Python: ${error.message}`);
-        console.error(`stderr: ${stderr}`);
-      } else {
-        console.log(`Salida del script de Python: ${stdout}`);
-      }
-    });
+    if (URL.includes("youtube")) {
+      downloadFromYoutube(URL);
+    } else if (URL.includes("instagram")) {
+      downloadFromInstagram(URL);
+    } else {
+      console.log(`Unknown social network ${URL}`);
+      res.status(400).send(`Unknown social network ${URL}`);
+      return;
+    }
 
-    // Responder inmediatamente con 200 OK
-    res.status(200).send('YouTube video download initiated!');
+    res.status(200).send('Video download initiated!');
   } catch (error) {
-    console.error('Error iniciando la descarga del video de YouTube:', error);
-    res.status(500).send('Error initiating YouTube video download');
+    console.error('Error iniciando la descarga del video:', error);
+    res.status(500).send('Error initiating video download');
   }
 });
 
