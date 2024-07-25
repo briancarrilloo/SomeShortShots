@@ -188,7 +188,6 @@ try:
     button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Compartir')]")
     print("Botón 'Compartir' encontrado.")
     button.click()
-    time.sleep(2)  # Espera después de hacer clic
 except Exception as e:
     print("Error al encontrar o hacer clic en el botón:", e)
 
