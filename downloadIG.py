@@ -33,7 +33,8 @@ def main(instagram_post_url):
         if title:
             safe_title = "".join([c if c.isalnum() else "_" for c in title])
         else:
-            safe_title = f"IG_{datetime.now().strftime("%Y-%m-%d_%H:%M:%S")}"
+            time = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            safe_title = f"IG_{time}"
         
         output_path = os.path.join(downloads_folder, f"{safe_title}.mp4")
         
