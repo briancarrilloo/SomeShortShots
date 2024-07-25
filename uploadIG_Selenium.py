@@ -84,7 +84,6 @@ for link in links:
 
 time.sleep(5)
 
-videopath = '/Users/briancarrillo/Descargas/instagram_reel.mp4'
 # Carga el archivo de video
 links = driver.find_elements(By.XPATH, "//button")
 for link in links:
@@ -93,13 +92,38 @@ for link in links:
         link.click()
         break
 
-time.sleep(2)  # Espera a que se abra el diálogo
-pyautogui.write(videopath)  # Escribe la ruta del archivo
+time.sleep(3)
+
+# Mapea cada carácter a una combinación de teclas si es necesario
+def type_path(path):
+    for char in path:
+        if char == '/':
+            pyautogui.keyDown('shift')
+            pyautogui.press('7')
+            pyautogui.keyUp('shift')
+        else:
+            pyautogui.write(char, 0.025)
+
+# Usa la función para ingresar la ruta
+videopath = '/Usuarios/briancarrillo/Descargas/instagramreel.mp4'
+type_path(videopath)
+time.sleep(1)
 pyautogui.press('enter')
+time.sleep(1)
 pyautogui.press('enter')
 
 # Espera que el video se cargue
-# time.sleep(10)
+time.sleep(3)
+
+# Confirma warning video ahora son reels
+links = driver.find_elements(By.XPATH, "//button")
+for link in links:
+    if "Aceptar" in link.get_attribute("innerHTML"):
+        print("Aceptar")
+        link.click()
+        break
+
+time.sleep(3)
 
 # Introduce la descripción del Reel (opcional)
 # description_area = driver.find_element(By.XPATH, '//textarea[@aria-label="Descripción"]')
