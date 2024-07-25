@@ -44,14 +44,14 @@ driver.fullscreen_window()
 time.sleep(3)
 
 # Rechaza cookies si es necesario
-# links = driver.find_elements(By.XPATH, "//button")
-# for link in links:
-#     if "Rechazar cookies" in link.get_attribute("innerHTML"):
-#         print("Rechazar cookies")
-#         link.click()
-#         break
+links = driver.find_elements(By.XPATH, "//button")
+for link in links:
+    if "Rechazar cookies" in link.get_attribute("innerHTML"):
+        print("Rechazar cookies")
+        link.click()
+        time.sleep(3)
+        break
 
-# time.sleep(5)
 
 # Cargar cookies si existen
 load_cookies(driver, cookies_file)
@@ -102,7 +102,7 @@ def type_path(path):
             pyautogui.press('7')
             pyautogui.keyUp('shift')
         else:
-            pyautogui.write(char, 0.025)
+            pyautogui.write(char)
 
 # Usa la función para ingresar la ruta
 videopath = '/Usuarios/briancarrillo/Descargas/instagramreel.mp4'
@@ -121,21 +121,77 @@ for link in links:
     if "Aceptar" in link.get_attribute("innerHTML"):
         print("Aceptar")
         link.click()
+        time.sleep(3)
         break
 
-time.sleep(3)
 
-# Introduce la descripción del Reel (opcional)
-# description_area = driver.find_element(By.XPATH, '//textarea[@aria-label="Descripción"]')
-# description_area.send_keys('Tu descripción del Reel')
+# Seleccionar recorte
+links = driver.find_elements(By.XPATH, "//button")
+for link in links:
+    if "Seleccionar recorte" in link.get_attribute("innerHTML"):
+        print("Seleccionar recorte")
+        link.click()
+        time.sleep(1)
+        break
 
-# Publica el Reel
-# share_button = driver.find_element(By.XPATH, '//button[text()="Compartir"]')
-# share_button.click()
+# Recorte original
+links = driver.find_elements(By.XPATH, "//span")
+for link in links:
+    if "Original" in link.get_attribute("innerHTML"):
+        print("Original")
+        link.click()
+        time.sleep(1)
+        break
 
-# Espera para que la publicación se realice
-# time.sleep(5)
+# Encuentra el <div> con role="button" y el texto "Siguiente"
+try:
+    button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Siguiente')]")
+    print("Botón 'Siguiente' encontrado.")
+    button.click()
+    time.sleep(2)  # Espera después de hacer clic
+except Exception as e:
+    print("Error al encontrar o hacer clic en el botón:", e)
+
+# Encuentra el <div> con role="button" y el texto "Siguiente"
+try:
+    button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Siguiente')]")
+    print("Botón 'Siguiente' encontrado.")
+    button.click()
+    time.sleep(2)  # Espera después de hacer clic
+except Exception as e:
+    print("Error al encontrar o hacer clic en el botón:", e)
+
+# time.sleep(200)
+# Escribe
+# links = driver.find_elements(By.XPATH, "//div")
+# for link in links:
+#     if "Escribe un pie" in link.get_attribute("innerHTML"):
+#         print("Escribe un pie")
+#         link.click()
+#         time.sleep(0.5)
+#         pyautogui.write('Follow for more!')
+#         time.sleep(0.5)
+#         break
+
+# try:
+#     button = driver.find_element(By.XPATH, "//div[@editor='true']")
+#     print("Botón 'Escribe un pie' encontrado.")
+#     button.click()
+#     time.sleep(0.5)  # Espera después de hacer clic
+#     pyautogui.write('Follow for more!')
+#     time.sleep(0.5)
+# except Exception as e:
+#     print("Error al encontrar o hacer clic en el botón:", e)
+
+# Compartir
+try:
+    button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Compartir')]")
+    print("Botón 'Compartir' encontrado.")
+    button.click()
+    time.sleep(2)  # Espera después de hacer clic
+except Exception as e:
+    print("Error al encontrar o hacer clic en el botón:", e)
 
 # Cierra el navegador
-time.sleep(600)
+time.sleep(60)
 driver.quit()
