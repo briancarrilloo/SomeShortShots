@@ -3,6 +3,7 @@ import requests
 import os
 import argparse
 from datetime import datetime
+from moveDownload import moveDownload
 
 def get_instagram_video_info(post_url):
     L = instaloader.Instaloader()
@@ -39,7 +40,8 @@ def main(instagram_post_url):
         output_path = os.path.join(downloads_folder, f"{safe_title}.mp4")
         
         download_video(video_url, output_path)
-        print(f"Video descargado y guardado en {output_path}")
+        moveDownload(output_path);
+        print(f"Video descargado y guardado {safe_title}.mp4")
     else:
         print("No se pudo encontrar el video o la publicación no contiene un video.")
 

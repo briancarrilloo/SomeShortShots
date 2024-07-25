@@ -2,6 +2,7 @@ import yt_dlp
 import os
 import shutil
 import argparse
+from moveDownload import moveDownload
 
 def main(url):
     # Opciones para la descarga
@@ -23,18 +24,7 @@ def main(url):
     # Ruta del archivo descargado
     downloaded_file = f'downloads/{video_title}.{video_extension}'
 
-    # Carpetas de destino
-    destination_folders = ['tiktok', 'youtube', 'instagram']
-
-    # Crear las carpetas de destino si no existen y copiar el archivo
-    for folder in destination_folders:
-        destination_path = os.path.join('downloads', folder)
-        if not os.path.exists(destination_path):
-            os.makedirs(destination_path)
-            os.makedirs(destination_path + '/processed')
-        shutil.copy(downloaded_file, destination_path)
-    
-    os.remove(downloaded_file)
+    moveDownload(downloaded_file)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Descargar y convertir un video de YouTube.')
