@@ -1,17 +1,18 @@
-# pip3 install instaloader
-
 import instaloader
 import requests
+import os
+import sys
+from datetime import datetime
 
-def get_instagram_video_url(post_url):
+def get_instagram_video_info(post_url):
     L = instaloader.Instaloader()
     shortcode = post_url.split("/")[-2]
     post = instaloader.Post.from_shortcode(L.context, shortcode)
     
     if post.is_video:
-        return post.video_url
+        return post.video_url, post.title
     else:
-        return None
+        return None, None
 
 def download_video(video_url, output_path):
     response = requests.get(video_url, stream=True)
@@ -22,19 +23,28 @@ def download_video(video_url, output_path):
     else:
         print(f"Error al descargar el video: {response.status_code}")
 
-def main(instagram_post_url, output_path):
-    video_url = get_instagram_video_url(instagram_post_url)
+def main(instagram_post_url):
+    video_url, title = get_instagram_video_info(instagram_post_url)
     if video_url:
+        downloads_folder = 'downloads'
+        os.makedirs(downloads_folder, exist_ok=True)
+        
+        # Limpieza del título para que sea un nombre de archivo válido
+        if title:
+            safe_title = "".join([c if c.isalnum() else "_" for c in title])
+        else:
+            safe_title = f"IG_{datetime.now().strftime("%Y-%m-%d_%H:%M:%S")}"
+        
+        output_path = os.path.join(downloads_folder, f"{safe_title}.mp4")
+        
         download_video(video_url, output_path)
         print(f"Video descargado y guardado en {output_path}")
     else:
         print("No se pudo encontrar el video o la publicación no contiene un video.")
 
 if __name__ == "__main__":
-    # URL de la publicación de Instagram (Reels)
-    instagram_post_url = 'https://www.instagram.com/reel/C9MUIP9yxEw/?igsh=Y2t0bXIwZTdlMzRq'
-    
-    # Ruta completa donde se guardará el video
-    output_path = './video.mp4'
-    
-    main(instagram_post_url, output_path)
+    if len(sys.argv) != 2:
+        print("Uso: python script.py <URL del reel de Instagram>")
+    else:
+        instagram_post_url = sys.argv[1]
+        main(instagram_post_url)
