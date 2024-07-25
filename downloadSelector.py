@@ -3,13 +3,20 @@ import os
 import shutil
 import argparse
 
-def main(url):
+def list_formats(url):
+    ydl_opts = {
+        'listformats': True,
+    }
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.extract_info(url, download=False)
+
+def download_video(url, format_code):
     # Opciones para la descarga
     ydl_opts = {
-        'format': 'bestvideo+bestaudio/best',  # Descargar la mejor calidad de video y audio
+        'format': format_code,  # Descargar el formato seleccionado
         'outtmpl': 'downloads/%(title)s.%(ext)s',  # Nombre del archivo de salida
         'noplaylist': True,  # No descargar listas de reproducción
-        'merge_output_format': 'mp4',  # Formato de salida después de fusionar audio y video
     }
 
     # Descargar el video
@@ -18,8 +25,8 @@ def main(url):
         # Obtener información del video descargado
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None)
-        video_extension = 'mp4'  # Ajustar la extensión al formato de salida
-
+        video_extension = info_dict.get('ext', None)
+    
     # Ruta del archivo descargado
     downloaded_file = f'downloads/{video_title}.{video_extension}'
 
@@ -40,4 +47,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Descargar y convertir un video de YouTube.')
     parser.add_argument('url', type=str, help='URL del video de YouTube que deseas descargar')
     args = parser.parse_args()
-    main(args.url)
+
+    # Listar los formatos disponibles
+    list_formats(args.url)
+    
+    # Solicitar al usuario que seleccione un formato
+    format_code = input("Introduce el código del formato que deseas descargar: ")
+    
+    # Descargar el video en el formato seleccionado
+    download_video(args.url, format_code)

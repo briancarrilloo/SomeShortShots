@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const { exec } = require('child_process');
-const fs = require('fs');
 
 const app = express();
 app.use(express.json());
@@ -14,15 +13,22 @@ app.post('/getVideoYoutube', async (req, res) => {
   console.log(`Downloading video ${URL}`);
 
   try {
-    // Ejecutar el script de Python
+    // Ejecutar el script de Python de manera asincrónica
     console.log(`Ejecutando: python3 downloadYT.py ${URL}`);
     exec(`python3 downloadYT.py ${URL}`, (error, stdout, stderr) => {
-      console.log(`Salida del script de Python: ${stdout}`);
-      return res.status(200).send('YouTube video downloaded successfully!');
+      if (error) {
+        console.error(`Error ejecutando el script de Python: ${error.message}`);
+        console.error(`stderr: ${stderr}`);
+      } else {
+        console.log(`Salida del script de Python: ${stdout}`);
+      }
     });
+
+    // Responder inmediatamente con 200 OK
+    res.status(200).send('YouTube video download initiated!');
   } catch (error) {
-    console.error('Error descargando el video de YouTube:', error);
-    res.status(500).send('Error downloading YouTube video');
+    console.error('Error iniciando la descarga del video de YouTube:', error);
+    res.status(500).send('Error initiating YouTube video download');
   }
 });
 
