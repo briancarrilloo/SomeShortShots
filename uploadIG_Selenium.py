@@ -1,5 +1,6 @@
 # pip3 install selenium
 # pip3 install pyautogui  
+# pip3 install dotenv
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -11,6 +12,14 @@ import time
 import pickle
 import os
 import pyautogui
+from dotenv import load_dotenv
+
+# Cargar variables de entorno del archivo .env
+load_dotenv()
+
+# Obtener credenciales de las variables de entorno
+INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME')
+INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
 
 # Configuración del WebDriver
 chrome_options = Options()
@@ -62,8 +71,8 @@ try:
     password = driver.find_element(By.NAME, 'password')
 
     print("Login")
-    username.send_keys('someshortshots')
-    password.send_keys('gk6PLvQyltFwQrTWd')
+    username.send_keys(INSTAGRAM_USERNAME)
+    password.send_keys(INSTAGRAM_PASSWORD)
     password.send_keys(Keys.RETURN)
 
     # Espera para que se realice el login
@@ -99,6 +108,7 @@ def type_path(path):
     for char in path:
         if char == '/':
             pyautogui.keyDown('shift')
+            time.sleep(0.5)
             pyautogui.press('7')
             pyautogui.keyUp('shift')
         else:
