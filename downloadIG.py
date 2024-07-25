@@ -1,7 +1,7 @@
 import instaloader
 import requests
 import os
-import sys
+import argparse
 from datetime import datetime
 
 def get_instagram_video_info(post_url):
@@ -43,8 +43,7 @@ def main(instagram_post_url):
         print("No se pudo encontrar el video o la publicación no contiene un video.")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Uso: python script.py <URL del reel de Instagram>")
-    else:
-        instagram_post_url = sys.argv[1]
-        main(instagram_post_url)
+    parser = argparse.ArgumentParser(description='Descargar y convertir un video de YouTube.')
+    parser.add_argument('url', type=str, help='URL del video de YouTube que deseas descargar')
+    args = parser.parse_args()
+    main(args.url)
