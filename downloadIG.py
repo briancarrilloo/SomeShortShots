@@ -5,9 +5,12 @@ import argparse
 from datetime import datetime
 from moveDownload import moveDownload
 
+def get_url_shortcode(post_url):
+    return post_url.split("/")[-2]
+
 def get_instagram_video_info(post_url):
     L = instaloader.Instaloader()
-    shortcode = post_url.split("/")[-2]
+    shortcode = get_url_shortcode(post_url)
     post = instaloader.Post.from_shortcode(L.context, shortcode)
     
     if post.is_video:
@@ -31,11 +34,7 @@ def main(instagram_post_url):
         os.makedirs(downloads_folder, exist_ok=True)
         
         # Limpieza del título para que sea un nombre de archivo válido
-        if title:
-            safe_title = "".join([c if c.isalnum() else "_" for c in title])
-        else:
-            time = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-            safe_title = f"IG_{time}"
+        safe_title = f'IG{get_url_shortcode(instagram_post_url)}'
         
         output_path = os.path.join(downloads_folder, f"{safe_title}.mp4")
         

@@ -14,6 +14,8 @@ import os
 import pyautogui
 from dotenv import load_dotenv
 
+SLEEP_MULTIPLIER = os.getenv('SLEEP_MULTIPLIER')
+
 # Cargar variables de entorno del archivo .env
 load_dotenv()
 
@@ -50,7 +52,7 @@ driver.get("https://www.instagram.com")
 driver.fullscreen_window()
 
 # Espera que la página cargue
-time.sleep(3)
+time.sleep(3*SLEEP_MULTIPLIER)
 
 # Rechaza cookies si es necesario
 links = driver.find_elements(By.XPATH, "//button")
@@ -58,7 +60,7 @@ for link in links:
     if "Rechazar cookies" in link.get_attribute("innerHTML"):
         print("Rechazar cookies")
         link.click()
-        time.sleep(3)
+        time.sleep(3*SLEEP_MULTIPLIER)
         break
 
 
@@ -76,7 +78,7 @@ try:
     password.send_keys(Keys.RETURN)
 
     # Espera para que se realice el login
-    time.sleep(5)
+    time.sleep(5*SLEEP_MULTIPLIER)
 
     # Guarda las cookies después de iniciar sesión
     save_cookies(driver, cookies_file)
@@ -91,7 +93,7 @@ for link in links:
         link.click()
         break
 
-time.sleep(5)
+time.sleep(5*SLEEP_MULTIPLIER)
 
 # Carga el archivo de video
 links = driver.find_elements(By.XPATH, "//button")
@@ -101,7 +103,7 @@ for link in links:
         link.click()
         break
 
-time.sleep(3)
+time.sleep(3*SLEEP_MULTIPLIER)
 
 # Mapea cada carácter a una combinación de teclas si es necesario
 def type_path(path):
@@ -117,13 +119,13 @@ def type_path(path):
 # Usa la función para ingresar la ruta
 videopath = '/Usuarios/briancarrillo/Descargas/instagramreel.mp4'
 type_path(videopath)
-time.sleep(1)
+time.sleep(1*SLEEP_MULTIPLIER)
 pyautogui.press('enter')
-time.sleep(1)
+time.sleep(1*SLEEP_MULTIPLIER)
 pyautogui.press('enter')
 
 # Espera que el video se cargue
-time.sleep(3)
+time.sleep(3*SLEEP_MULTIPLIER)
 
 # Confirma warning video ahora son reels
 links = driver.find_elements(By.XPATH, "//button")
@@ -131,7 +133,7 @@ for link in links:
     if "Aceptar" in link.get_attribute("innerHTML"):
         print("Aceptar")
         link.click()
-        time.sleep(3)
+        time.sleep(3*SLEEP_MULTIPLIER)
         break
 
 
@@ -141,7 +143,7 @@ for link in links:
     if "Seleccionar recorte" in link.get_attribute("innerHTML"):
         print("Seleccionar recorte")
         link.click()
-        time.sleep(1)
+        time.sleep(1*SLEEP_MULTIPLIER)
         break
 
 # Recorte original
@@ -150,7 +152,7 @@ for link in links:
     if "Original" in link.get_attribute("innerHTML"):
         print("Original")
         link.click()
-        time.sleep(1)
+        time.sleep(1*SLEEP_MULTIPLIER)
         break
 
 # Encuentra el <div> con role="button" y el texto "Siguiente"
@@ -158,7 +160,7 @@ try:
     button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Siguiente')]")
     print("Botón 'Siguiente' encontrado.")
     button.click()
-    time.sleep(2)  # Espera después de hacer clic
+    time.sleep(2*SLEEP_MULTIPLIER)  # Espera después de hacer clic
 except Exception as e:
     print("Error al encontrar o hacer clic en el botón:", e)
 
@@ -167,7 +169,7 @@ try:
     button = driver.find_element(By.XPATH, "//div[@role='button' and contains(text(), 'Siguiente')]")
     print("Botón 'Siguiente' encontrado.")
     button.click()
-    time.sleep(2)  # Espera después de hacer clic
+    time.sleep(2*SLEEP_MULTIPLIER)  # Espera después de hacer clic
 except Exception as e:
     print("Error al encontrar o hacer clic en el botón:", e)
 
@@ -202,5 +204,5 @@ except Exception as e:
     print("Error al encontrar o hacer clic en el botón:", e)
 
 # Cierra el navegador
-time.sleep(60)
+time.sleep(60*SLEEP_MULTIPLIER)
 driver.quit()

@@ -1,5 +1,6 @@
 import os
 import shutil
+import argparse
 
 def moveDownload(source_file):
     # Carpetas de destino
@@ -16,8 +17,6 @@ def moveDownload(source_file):
     os.remove(source_file)
 
 if __name__ == '__main__':
-    import argparse
-
     parser = argparse.ArgumentParser(description='Copiar archivo a múltiples carpetas y eliminar el original.')
     parser.add_argument('source_file', type=str, help='Ruta del archivo a copiar y eliminar.')
     args = parser.parse_args()
