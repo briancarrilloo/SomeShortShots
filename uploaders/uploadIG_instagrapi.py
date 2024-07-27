@@ -1,6 +1,4 @@
-# pip3 install instagrapi
-# pip install Pillow
-# pip install moviepy
+# pip3 install instagrapi Pillow moviepy
 
 from instagrapi import Client
 import os
