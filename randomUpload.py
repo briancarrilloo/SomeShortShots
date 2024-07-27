@@ -79,7 +79,7 @@ def main():
         # Obtener un archivo al azar de la carpeta ./downloads/instagram
         random_file = GetRandomFile(instagram_folder, '.mp4')
         print(f"Archivo seleccionado para Instagram: {random_file}")
-        UploadToInstagram(instagram_script, random_file)
+        UploadToInstagram(random_file)
     except Exception as e:
         print(f"Instagram error: {e}")
     
