@@ -12,6 +12,23 @@ load_dotenv()
 INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME')
 INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
 
+caption = """No problem! Here the information about Mercedes CLS GTR:
+
+The Mercedes CLS GTR is a remarkable racing car celebrated for its outstanding performance and sleek design. Powered by a potent 6.0-liter V12 engine, it delivers over 600 horsepower. 🔧
+
+Accelerated from 0-100 km/h takes approximately 3.7 seconds, with a remarkable top speed surpassing 320hm/h. 🥇
+
+Incorporating advanced aerodynamics features and cutting-edge stability technologies, the CLS GTR ensures exceptional stability and control, particularly high-speed maneuvers. 💨
+
+Originally priced around 1.5 million, the Mercedes CLS GTR is considered one of the most exclusive and prestigious racing cars ever produced. 💰
+
+Its limited production run of just five units adds to its rarity, making it highly sought after by racing enthusiasts and collectors worldwide. 🌎
+
+Join my Instagram, there are regular quizzes about cars and automotive news📱
+
+I invite you to my Telegram channel where you c
+"""
+
 def uploadFile(sourceVideo):
     try:
         cl = Client()
@@ -19,7 +36,6 @@ def uploadFile(sourceVideo):
 
         # Ruta del video y configuración
         video_path = sourceVideo
-        caption = "Follow for more! #fyp #shorts"
 
         # Publicación del reel
         cl.clip_upload(video_path, caption)
