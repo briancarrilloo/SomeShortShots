@@ -1,16 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
 const { exec } = require('child_process');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
 // Middleware
 app.use(morgan('dev'));
 
+const rootDir = path.resolve(__dirname);
+
 // Downloader
 const downloadFromYoutube = async (URL) => {
   console.log(`Ejecutando: python3 downloadYT.py ${URL}`);
-  exec(`python3 downloadYT.py ${URL}`, (error, stdout, stderr) => {
+  exec(`python3 downloadYT.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error ejecutando el script de Python: ${error.message}`);
       console.error(`stderr: ${stderr}`);
@@ -22,7 +25,7 @@ const downloadFromYoutube = async (URL) => {
 
 const downloadFromInstagram = async (URL) => {
   console.log(`Ejecutando: python3 downloadIG.py ${URL}`);
-  exec(`python3 downloadIG.py ${URL}`, (error, stdout, stderr) => {
+  exec(`python3 downloadIG.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error ejecutando el script de Python: ${error.message}`);
       console.error(`stderr: ${stderr}`);
