@@ -9,11 +9,12 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 const rootDir = path.resolve(__dirname);
+const venvActivate = path.join(rootDir, 'downloaderEnv', 'bin', 'activate');
 
 // Downloader
 const downloadFromYoutube = async (URL) => {
-  console.log(`Ejecutando: python3 downloadYT.py ${URL}`);
-  exec(`python3 downloadYT.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
+  console.log(`Ejecutando: source ${venvActivate} && python3 downloadYT.py ${URL}`);
+  exec(`source ${venvActivate} && python3 downloadYT.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error ejecutando el script de Python: ${error.message}`);
       console.error(`stderr: ${stderr}`);
@@ -24,8 +25,8 @@ const downloadFromYoutube = async (URL) => {
 }
 
 const downloadFromInstagram = async (URL) => {
-  console.log(`Ejecutando: python3 downloadIG.py ${URL}`);
-  exec(`python3 downloadIG.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
+  console.log(`Ejecutando: source ${venvActivate} && python3 downloadIG.py ${URL}`);
+  exec(`source ${venvActivate} && python3 downloadIG.py ${URL}`, { cwd: rootDir }, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error ejecutando el script de Python: ${error.message}`);
       console.error(`stderr: ${stderr}`);
