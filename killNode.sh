@@ -1,0 +1,1 @@
+pkill -f 'node /home/briancarrillo/SomeShortShots/index.js'
