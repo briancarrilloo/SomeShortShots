@@ -1,4 +1,4 @@
-# pip3 install instagrapi Pillow moviepy
+# pip3 install instagrapi Pillow moviepy python-dotenv
 
 from instagrapi import Client
 import os

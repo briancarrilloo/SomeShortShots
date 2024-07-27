@@ -1,3 +1,5 @@
+# pip3 install instaloader
+
 import instaloader
 import requests
 import os
