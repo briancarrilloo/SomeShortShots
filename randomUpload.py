@@ -24,7 +24,7 @@ def GetRandomFile(relative_folder_path, extension=None):
 
 def RunUploader(script_path, file_path):
     # Ejecutar el script con el archivo seleccionado como parámetro
-    result = subprocess.run(['python', script_path, file_path], capture_output=True, text=True)
+    result = subprocess.run(['python3', script_path, file_path], capture_output=True, text=True)
     
     # Imprimir la salida del script
     print(result.stdout)
