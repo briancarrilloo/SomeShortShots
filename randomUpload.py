@@ -22,12 +22,9 @@ def GetRandomFile(relative_folder_path, extension=None):
     return random_file
 
 
-def RunUploader(relative_script_path, file_path):
-    # Obtener la ruta absoluta del script
-    absolute_script_path = os.path.abspath(relative_script_path)
-    
+def RunUploader(script_path, file_path):
     # Ejecutar el script con el archivo seleccionado como parámetro
-    result = subprocess.run(['python', absolute_script_path, file_path], capture_output=True, text=True)
+    result = subprocess.run(['python', script_path, file_path], capture_output=True, text=True)
     
     # Imprimir la salida del script
     print(result.stdout)
@@ -35,12 +32,18 @@ def RunUploader(relative_script_path, file_path):
         print(result.stderr)
     
 def main():
-    # - - - - Instagram - - - -
+    # Obtener el directorio del script actual
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construir las rutas absolutas a las carpetas y scripts necesarios
+    instagram_folder = os.path.join(script_dir, 'downloads', 'instagram')
+    instagram_script = os.path.join(script_dir, 'uploaders', 'uploadIG_instagrapi.py')
+    
     try:
         # Obtener un archivo al azar de la carpeta ./downloads/instagram
-        random_file = GetRandomFile('./downloads/instagram', '.mp4')
+        random_file = GetRandomFile(instagram_folder, '.mp4')
         print(f"Archivo seleccionado para Instagram: {random_file}")
-        RunUploader('./uploaders/uploadIG_instagrapi.py', random_file)
+        RunUploader(instagram_script, random_file)
     except Exception as e:
         print(f"Instagram error: {e}")
     
@@ -48,4 +51,4 @@ def main():
     #TODO: TikTok
 
 if __name__ == "__main__":
-    main()  
+    main()
