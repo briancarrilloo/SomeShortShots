@@ -42,4 +42,5 @@ def replay_events():
         time.sleep(0.05)  # Simular el tiempo de espera entre eventos
 
 # Reproducir los eventos
+print('Reproduciendo eventos')
 replay_events()
