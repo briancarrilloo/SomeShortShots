@@ -11,4 +11,4 @@ time.sleep(10)
 for i in range(iterations):
     print(f'Ejecutando el comando {i+1}/{iterations}')
     subprocess.run(command, shell=True)
-    time.sleep(random.uniform(0.5, 1))
+    time.sleep(random.uniform(0.5, 2.5))
