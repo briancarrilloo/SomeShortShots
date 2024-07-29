@@ -6,7 +6,7 @@ import time
 
 # Configura la URL del servidor y el número máximo de líneas a procesar
 server_url = 'http://192.168.1.2:3000/getVideo'
-max_lines_to_process = 20
+max_lines_to_process = 6
 input_file = 'reels.txt'
 
 def process_urls():
