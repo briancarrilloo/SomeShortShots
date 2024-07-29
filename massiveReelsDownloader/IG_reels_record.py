@@ -1,5 +1,3 @@
-# Este script se debe ejecutar desde un reel dentro del perfil de un usuario. Abrir en segundo plano un bloc de notas donde el script pegará las URL que vaya encontrando.
-
 from pynput import mouse, keyboard
 import pickle
 import time
