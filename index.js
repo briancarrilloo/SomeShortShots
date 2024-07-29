@@ -1,3 +1,5 @@
+// Script de node que inicia una API que recibe una URL de youtube o instagram, la separa y ejecuta los scripts de descarga
+
 const express = require('express');
 const morgan = require('morgan');
 const { exec } = require('child_process');

@@ -1,3 +1,5 @@
+# Script de python que recibe la URL de un short de youtube y lo descarga en local
+
 import yt_dlp
 import os
 import shutil

@@ -1,3 +1,5 @@
+# Script de python que elige un .mp4 al azar de la carpeta de descargas de cada red social, lo publica y elimina la copia local.
+
 # pip3 install instagrapi Pillow moviepy python-dotenv
 
 import os

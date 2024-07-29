@@ -1,11 +1,13 @@
+# Script de python que recibe la URL de un archivo y lo mueve a las distintas carpetas de destino
+
 import os
 import shutil
 import argparse
 
-def moveDownload(source_file):
-    # Carpetas de destino
-    destination_folders = ['tiktok', 'youtube', 'instagram']
+# Carpetas de destino
+destination_folders = ['originals', 'instagram']
 
+def moveDownload(source_file):
     # Crear las carpetas de destino si no existen y copiar el archivo
     for folder in destination_folders:
         destination_path = os.path.join('downloads', folder)
