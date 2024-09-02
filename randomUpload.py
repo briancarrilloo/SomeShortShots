@@ -7,7 +7,7 @@ import random
 import subprocess
 from dotenv import load_dotenv
 from instagrapi import Client
-
+from youtubeUploader import upload_video_to_youtube
 
 
 # Cargar variables de entorno del archivo .env
@@ -32,6 +32,12 @@ Join my Instagram, there are regular quizzes about cars and automotive news📱
 I invite you to my Telegram channel #fyp
 """
 
+youtube_title = ''
+youtube_description = ''
+youtube_category = ''
+youtube_keywords = 'Shorts'
+youtube_privacyStatus = 'public'
+
 def GetRandomFile(relative_folder_path, extension=None):
     # Obtener la ruta absoluta de la carpeta
     absolute_folder_path = os.path.abspath(relative_folder_path)
@@ -53,7 +59,6 @@ def GetRandomFile(relative_folder_path, extension=None):
 
 
 def UploadToInstagram(sourceVideo):
-
     try:
         cl = Client()
         cl.login(INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD)
@@ -65,14 +70,16 @@ def UploadToInstagram(sourceVideo):
         cl.clip_upload(video_path, instagram_caption)
 
         os.remove(sourceVideo)
-        print(f"Reel publicado con éxito. {sourceVideo}")
+        print(f"Instagram: Reel publicado con éxito. {sourceVideo}")
     except:
-        print(f"Error al publicar el reel. {sourceVideo}")
+        print(f"Instagram: Error al publicar el reel. {sourceVideo}")
     
 def main():
     # Obtener el directorio del script actual
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
+
+    # - - Instagram - -
     # Construir las rutas absolutas a las carpetas y scripts necesarios
     instagram_folder = os.path.join(script_dir, 'downloads', 'instagram')
     instagram_script = os.path.join(script_dir, 'uploaders', 'uploadIG_instagrapi.py')
@@ -85,7 +92,21 @@ def main():
     except Exception as e:
         print(f"Instagram error: {e}")
     
-    #TODO: Youtube
+
+    # - - Youtube - - 
+    youtube_folder = os.path.join(script_dir, 'downloads', 'youtube')
+    random_file = GetRandomFile(youtube_folder, '.mp4')
+    upload_video_to_youtube(
+        file=random_file,
+        title=youtube_title,
+        description=youtube_description,
+        category=youtube_category,
+        keywords=youtube_keywords,
+        privacyStatus=youtube_privacyStatus
+    )
+    os.remove(random_file)
+    
+
     #TODO: TikTok
 
 if __name__ == "__main__":

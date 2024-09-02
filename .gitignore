@@ -4,3 +4,5 @@ downloads
 .env
 cookies
 massiveReelsDownloader/reels.txt
+client_secrets.json
+randomUpload.py-oauth2.json
