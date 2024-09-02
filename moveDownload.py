@@ -5,7 +5,7 @@ import shutil
 import argparse
 
 # Carpetas de destino
-destination_folders = ['originals', 'instagram']
+destination_folders = ['originals', 'instagram', 'youtube']
 
 def moveDownload(source_file):
     # Crear las carpetas de destino si no existen y copiar el archivo
