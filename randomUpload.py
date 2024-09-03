@@ -94,16 +94,16 @@ def main():
     
 
     # - - Youtube - - 
-    # youtube_folder = os.path.join(script_dir, 'downloads', 'youtube')
-    # random_file = GetRandomFile(youtube_folder, '.mp4')
-    # upload_video_to_youtube(
-    #     file=random_file,
-    #     title=youtube_title,
-    #     description=youtube_description,
-    #     category=youtube_category,
-    #     keywords=youtube_keywords,
-    #     privacyStatus=youtube_privacyStatus
-    # )
+    youtube_folder = os.path.join(script_dir, 'downloads', 'youtube')
+    random_file = GetRandomFile(youtube_folder, '.mp4')
+    upload_video_to_youtube(
+        file=random_file,
+        title=youtube_title,
+        description=youtube_description,
+        category=youtube_category,
+        keywords=youtube_keywords,
+        privacyStatus=youtube_privacyStatus
+    )
     # os.remove(random_file)
     
 
