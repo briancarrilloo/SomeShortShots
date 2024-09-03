@@ -32,10 +32,20 @@ Join my Instagram, there are regular quizzes about cars and automotive news📱
 I invite you to my Telegram channel #fyp
 """
 
-youtube_title = ''
-youtube_description = ''
-youtube_category = ''
-youtube_keywords = 'Shorts'
+youtube_title = '🤣 Funniest Memes & Viral Fails 2024! 😂 #Shorts'
+youtube_description = """Get ready to laugh out loud with the funniest memes and epic fails of 2024! 😂🔥 
+
+Don't forget to subscribe and hit the bell icon to never miss a hilarious video. 
+
+Love our content? Make sure to like, share, and comment on your favorite moments! We upload new videos every day to keep you entertained!
+
+Follow us on other platforms for exclusive content and updates:
+Instagram: @SomeShortShots
+
+#Shorts #Funny #Meme #Fails #Humor #Comedy #Entertainment #Laughs
+"""
+youtube_category = '24'
+youtube_keywords = 'Shorts, Funny, Meme, Fails, Humor, Laughs, Comedy, Pranks, Funny videos, Viral clips, 2024 Memes, Epic fails, Hilarious moments, Entertainment'
 youtube_privacyStatus = 'public'
 
 def GetRandomFile(relative_folder_path, extension=None):
