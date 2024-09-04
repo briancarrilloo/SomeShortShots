@@ -114,7 +114,7 @@ def main():
         keywords=youtube_keywords,
         privacyStatus=youtube_privacyStatus
     )
-    # os.remove(random_file)
+    os.remove(random_file)
     
 
     #TODO: TikTok
